@@ -26,7 +26,7 @@ private:
 	#define LOG_DEBUG(...) Logger::Get().GetLogger()->debug(__VA_ARGS__)
 	#define LOG_INFO(...) Logger::Get().GetLogger()->info(__VA_ARGS__)
 	#define LOG_WARNING(...) Logger::Get().GetLogger()->warn(__VA_ARGS__)
-	#define LOG_ERROR(...) Logger::Get().GetLogger()->err(__VA_ARGS__)
+	#define LOG_ERROR(...) Logger::Get().GetLogger()->error(__VA_ARGS__)
 #else
 	#define LOG_LEVEL spdlog::level::off
 

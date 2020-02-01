@@ -29,27 +29,27 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -76,15 +76,16 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(wxWidgets)\include\msvc;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxWidgets)\lib\vc_lib\mswud;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PreprocessorDefinitions>_UNICODE;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(wxWidgets)\lib\vc_x64_lib\mswud;$(wxWidgets)\lib\vc_x64_lib;$(Boost)\lib;$(SolutionDir)Dependencies\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>wxbase31ud.lib;spdlog.lib;libboost_iostreams-vc141-mt-gd-x64-1_72.lib;libboost_date_time-vc141-mt-gd-x64-1_72.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(wxWidgets)\lib\vc_lib;$(Boost)\lib;$(SolutionDir)Dependencies\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wxmsw31ud_core.lib;wxbase31ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;winmm.lib;shell32.lib;shlwapi.lib;comctl32.lib;ole32.lib;oleaut32.lib;uuid.lib;rpcrt4.lib;advapi32.lib;version.lib;wsock32.lib;wininet.lib;spdlog.lib;libboost_iostreams-vc141-mt-gd-x32-1_72.lib;libboost_date_time-vc141-mt-gd-x32-1_72.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>NotSet</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -93,15 +94,16 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(wxWidgets)\include\msvc;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxWidgets)\lib\vc_x64_lib\mswud;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PreprocessorDefinitions>_UNICODE;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(wxWidgets)\lib\vc_x64_lib\mswud;$(wxWidgets)\lib\vc_x64_lib;$(Boost)\lib;$(SolutionDir)Dependencies\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>wxbase31ud.lib;spdlog.lib;libboost_iostreams-vc141-mt-gd-x64-1_72.lib;libboost_date_time-vc141-mt-gd-x64-1_72.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(wxWidgets)\lib\vc_x64_lib;$(Boost)\lib;$(SolutionDir)Dependencies\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wxmsw31ud_core.lib;wxbase31ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;winmm.lib;shell32.lib;shlwapi.lib;comctl32.lib;ole32.lib;oleaut32.lib;uuid.lib;rpcrt4.lib;advapi32.lib;version.lib;wsock32.lib;wininet.lib;spdlog.lib;libboost_iostreams-vc141-mt-gd-x64-1_72.lib;libboost_date_time-vc141-mt-gd-x64-1_72.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>NotSet</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -112,17 +114,17 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(wxWidgets)\include\msvc;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxWidgets)\lib\vc_lib\mswu;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PreprocessorDefinitions>_UNICODE;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(wxWidgets)\lib\vc_x64_lib\mswu;$(wxWidgets)\lib\vc_x64_lib;$(Boost)\lib;$(SolutionDir)Dependencies\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>wxbase31u.lib;spdlog.lib;libboost_iostreams-vc141-mt-x64-1_72.lib;libboost_date_time-vc141-mt-x64-1_72.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(wxWidgets)\lib\vc_lib;$(Boost)\lib;$(SolutionDir)Dependencies\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wxmsw31u_core.lib;wxbase31u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;winmm.lib;shell32.lib;shlwapi.lib;comctl32.lib;ole32.lib;oleaut32.lib;uuid.lib;rpcrt4.lib;advapi32.lib;version.lib;wsock32.lib;wininet.lib;spdlog.lib;libboost_iostreams-vc141-mt-x32-1_72.lib;libboost_date_time-vc141-mt-x32-1_72.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,23 +135,23 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(wxWidgets)\include\msvc;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(wxWidgets)\lib\vc_lib\mswu;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PreprocessorDefinitions>_UNICODE;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(wxWidgets)\lib\vc_x64_lib\mswu;$(wxWidgets)\lib\vc_x64_lib;$(Boost)\lib;$(SolutionDir)Dependencies\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>wxbase31u.lib;spdlog.lib;libboost_iostreams-vc141-mt-x64-1_72.lib;libboost_date_time-vc141-mt-x64-1_72.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(wxWidgets)\lib\vc_x64_lib;$(Boost)\lib;$(SolutionDir)Dependencies\spdlog\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wxmsw31u_core.lib;wxbase31u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;kernel32.lib;user32.lib;gdi32.lib;comdlg32.lib;winspool.lib;winmm.lib;shell32.lib;shlwapi.lib;comctl32.lib;ole32.lib;oleaut32.lib;uuid.lib;rpcrt4.lib;advapi32.lib;version.lib;wsock32.lib;wininet.lib;spdlog.lib;libboost_iostreams-vc141-mt-x64-1_72.lib;libboost_date_time-vc141-mt-x64-1_72.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Config.cpp" />
-    <ClCompile Include="Source\FileLoader.cpp" />
-    <ClCompile Include="Source\FileSynchronizer.cpp" />
+    <ClCompile Include="Source\Folder.cpp" />
+    <ClCompile Include="Source\FolderSynchronizer.cpp" />
     <ClCompile Include="Source\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -161,8 +163,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Config.h" />
-    <ClInclude Include="Source\FileSynchronizer.h" />
-    <ClInclude Include="Source\FileLoader.h" />
+    <ClInclude Include="Source\FolderSynchronizer.h" />
+    <ClInclude Include="Source\Folder.h" />
     <ClInclude Include="Source\pch.h" />
     <ClInclude Include="Source\Util\Logger.h" />
     <ClInclude Include="Source\Util\Timer.h" />
@@ -170,6 +172,11 @@
   <ItemGroup>
     <Text Include="Assets\Original\Folder\sumFil.txt" />
     <Text Include="Assets\Original\ToCopy\adsgagd.txt" />
+    <Text Include="Folders\Reference\Folder\f1\txt.txt" />
+    <Text Include="Folders\Reference\Folder\Subfolder1\subsample1.txt" />
+    <Text Include="Folders\Reference\Folder\Subfolder1\subtext.txt" />
+    <Text Include="Folders\Reference\sample.txt" />
+    <Text Include="Folders\Reference\txt.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

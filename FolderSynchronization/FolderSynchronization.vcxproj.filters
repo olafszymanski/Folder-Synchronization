@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\FileLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -27,17 +24,17 @@
     <ClCompile Include="Source\Util\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FileSynchronizer.cpp">
+    <ClCompile Include="Source\Config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Config.cpp">
+    <ClCompile Include="Source\FolderSynchronizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Folder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\FileLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -47,15 +44,23 @@
     <ClInclude Include="Source\Util\Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FileSynchronizer.h">
+    <ClInclude Include="Source\Config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Config.h">
+    <ClInclude Include="Source\FolderSynchronizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Folder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Assets\Original\Folder\sumFil.txt" />
     <Text Include="Assets\Original\ToCopy\adsgagd.txt" />
+    <Text Include="Folders\Reference\Folder\f1\txt.txt" />
+    <Text Include="Folders\Reference\sample.txt" />
+    <Text Include="Folders\Reference\txt.txt" />
+    <Text Include="Folders\Reference\Folder\Subfolder1\subsample1.txt" />
+    <Text Include="Folders\Reference\Folder\Subfolder1\subtext.txt" />
   </ItemGroup>
 </Project>
