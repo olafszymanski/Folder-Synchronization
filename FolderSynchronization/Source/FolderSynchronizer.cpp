@@ -2,6 +2,8 @@
 
 #include "FolderSynchronizer.h"
 
+#include "Config.h"
+
 std::unique_ptr<Folder> Frame::s_Reference = nullptr;
 std::unique_ptr<Folder> Frame::s_Folder = nullptr;
 
@@ -11,10 +13,12 @@ wxBEGIN_EVENT_TABLE(Frame, wxFrame)
 	
 	EVT_DIRPICKER_CHANGED(REFERENCE_DIRECTORY_PICKER, Frame::OnReferenceDirectoryPicker)
 	EVT_DIRPICKER_CHANGED(DIRECTORY_PICKER, Frame::OnDirectoryPicker)
+
+	EVT_CHECKBOX(FAST_MODE, Frame::OnFastMode)
 wxEND_EVENT_TABLE()
 
 Frame::Frame()
-	: wxFrame(nullptr, wxID_ANY, "File Synchronizer", wxDefaultPosition, wxSize(1280, 720))
+	: wxFrame(nullptr, wxID_ANY, "Folder Synchronizer", wxDefaultPosition, wxSize(1280, 720))
 {
 	wxBoxSizer* mainSizer = new wxBoxSizer(wxHORIZONTAL);
 
@@ -103,13 +107,13 @@ void Frame::OnCompareButton(wxCommandEvent& event)
 	std::string referencePath = m_ReferenceDirectoryPicker->GetPath().c_str().AsString().ToStdString();
 	std::string path = m_DirectoryPicker->GetPath().c_str().AsString().ToStdString();
 	
-	if (referencePath.empty() || path.empty()) wxMessageBox("Reference or directory path is not selected!", "File Synchronizer", wxICON_ERROR);
+	if (referencePath.empty() || path.empty()) wxMessageBox("Reference or directory path is not selected!", "Folder Synchronizer", wxICON_ERROR);
 	else
 	{
-		if (referencePath == path) wxMessageBox("Paths are the same. Please select different folders.", "File Synchronizer", wxICON_INFORMATION | wxOK);
+		if (referencePath == path) wxMessageBox("Paths are the same. Please select different folders.", "Folder Synchronizer", wxICON_INFORMATION | wxOK);
 		else
 		{
-			wxMessageDialog confirmation(nullptr, "Are you sure you want to compare files? This action might take a while to complete.", "File Synchronizer", wxICON_AUTH_NEEDED | wxYES_NO);
+			wxMessageDialog confirmation(nullptr, "Are you sure you want to compare files? This action might take a while to complete.", "Folder Synchronizer", wxICON_AUTH_NEEDED | wxYES_NO);
 
 			if (confirmation.ShowModal() == wxID_YES)
 			{
@@ -117,6 +121,8 @@ void Frame::OnCompareButton(wxCommandEvent& event)
 				if (!s_Folder || s_Folder->Path != path) s_Folder = std::make_unique<Folder>(path);
 
 				s_Folder->Compare(*s_Reference);
+
+				wxMessageBox("Directories compared successfully!", "Folder Synchronizer", wxICON_INFORMATION | wxOK);
 			}
 		}
 	}
@@ -126,13 +132,13 @@ void Frame::OnSynchronizeButton(wxCommandEvent& event)
 	std::string referencePath = m_ReferenceDirectoryPicker->GetPath().c_str().AsString().ToStdString();
 	std::string path = m_DirectoryPicker->GetPath().c_str().AsString().ToStdString();
 
-	if (referencePath.empty() || path.empty()) wxMessageBox("Reference or directory path is not selected!", "File Synchronizer", wxICON_ERROR);
+	if (referencePath.empty() || path.empty()) wxMessageBox("Reference or directory path is not selected!", "Folder Synchronizer", wxICON_ERROR);
 	else
 	{
-		if (referencePath == path) wxMessageBox("Paths are the same. Please select different folders.", "File Synchronizer", wxICON_INFORMATION | wxOK);
+		if (referencePath == path) wxMessageBox("Paths are the same. Please select different folders.", "Folder Synchronizer", wxICON_INFORMATION | wxOK);
 		else
 		{
-			wxMessageDialog confirmation(nullptr, "Are you sure you want to synchronize files? This action might take a while to complete and is unreversable.", "File Synchronizer", wxICON_AUTH_NEEDED | wxYES_NO);
+			wxMessageDialog confirmation(nullptr, "Are you sure you want to synchronize files? This action might take a while to complete and is unreversable.", "Folder Synchronizer", wxICON_AUTH_NEEDED | wxYES_NO);
 
 			if (confirmation.ShowModal() == wxID_YES)
 			{
@@ -140,6 +146,8 @@ void Frame::OnSynchronizeButton(wxCommandEvent& event)
 				if (!s_Folder || s_Folder->Path != path) s_Folder = std::make_unique<Folder>(path);
 
 				s_Folder->Synchronize(*s_Reference);
+
+				wxMessageBox("Directories synchronized successfully!", "Folder Synchronizer", wxICON_INFORMATION | wxOK);
 			}
 		}
 	}
@@ -152,6 +160,11 @@ void Frame::OnReferenceDirectoryPicker(wxFileDirPickerEvent& event)
 void Frame::OnDirectoryPicker(wxFileDirPickerEvent& event)
 {
 	m_DirectoryTree->SetPath(m_DirectoryPicker->GetPath());
+}
+
+void Frame::OnFastMode(wxCommandEvent& event)
+{
+	Config::FastMode = m_FastMode->GetValue();
 }
 
 wxIMPLEMENT_APP(FolderSynchronizer);

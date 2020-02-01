@@ -1,18 +1,8 @@
 #pragma once
 
 #include <wx/wx.h>
-#include <wx/button.h>
-#include <wx/font.h>
-#include <wx/colour.h>
-#include <wx/settings.h>
-#include <wx/sizer.h>
-#include <wx/stattext.h>
-#include <wx/panel.h>
-#include <wx/frame.h>
 #include <wx/dirctrl.h>
 #include <wx/filepicker.h>
-#include <wx/treelist.h>
-#include <wx/artprov.h>
 
 #include "Folder.h"
 
@@ -28,6 +18,8 @@ private:
 
 	void OnReferenceDirectoryPicker(wxFileDirPickerEvent& event);
 	void OnDirectoryPicker(wxFileDirPickerEvent& event);
+
+	void OnFastMode(wxCommandEvent& event);
 
 	wxDECLARE_EVENT_TABLE();
 
