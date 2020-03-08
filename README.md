@@ -8,5 +8,4 @@ First of all, it checks if there are any lacking files in directory which is bei
 - [x] *Logging*
 - [x] *File mapping*
 - [x] *Switchable fast comparison mode*
-- [ ] *Image comparison with OpenCV*
-- [ ] *Better GUI*
+- [x] *Better GUI*
