@@ -23,6 +23,8 @@ private:
 
 	wxDECLARE_EVENT_TABLE();
 
+	void AppendItems();
+
 private:
 	enum
 	{
@@ -36,8 +38,10 @@ private:
 	wxStaticText* m_ReferenceDirectoryText,* m_DirectoryText;
 	wxDirPickerCtrl* m_ReferenceDirectoryPicker,* m_DirectoryPicker;
 	wxGenericDirCtrl* m_ReferenceDirectoryTree,* m_DirectoryTree;
-	
+
 	wxCheckBox* m_FastMode;
+
+	wxTreeCtrl* m_MissingFoldersTree,* m_SynchronizedFilesTree,* m_MissingFilesTree;
 
 	static std::unique_ptr<Folder> s_Reference, s_Folder;
 };

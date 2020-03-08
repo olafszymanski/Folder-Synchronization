@@ -32,14 +32,13 @@ public:
 	Folder(const std::filesystem::path& path);
 	~Folder() = default;
 
+	bool IsSubfolder(const Folder& parent);
+
 	void Compare(const Folder& reference);
 	void Synchronize(const Folder& reference);
 
 	inline bool ContainsFiles() const { return Files.size() > 0; }
 	inline bool ContainsFolders() const { return Folders.size() > 0; }
-
-	// Getter
-	inline bool IsCompared() const { return m_Compared; }
 
 public:
 	const std::filesystem::path Path;
@@ -50,11 +49,8 @@ public:
 private:
 	void Load(Folder& folder);
 
-	void CompareFiles(const std::shared_ptr<Folder>& reference);
+	bool CompareFiles(const std::shared_ptr<Folder>& reference);
 	void CompareFolders(const std::shared_ptr<Folder>& reference);
-
-private:
-	bool m_Compared;
 };
 
 class Result

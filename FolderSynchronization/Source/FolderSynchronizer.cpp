@@ -87,10 +87,45 @@ Frame::Frame()
 
 	mainAreaSizer->Add(directorySizer, 0, wxSHAPED, 0);
 
-	m_FastMode = new wxCheckBox(mainPanel, FAST_MODE, wxT("Fast mode"), wxDefaultPosition, wxDefaultSize, 0);
+	m_FastMode = new wxCheckBox(mainPanel, wxID_ANY, wxT("Fast mode"), wxDefaultPosition, wxDefaultSize, 0);
 	m_FastMode->SetFont(wxFont(11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Ubuntu")));
 
 	mainAreaSizer->Add(m_FastMode, 0, wxALL, 5);
+
+	wxBoxSizer* infoSizer = new wxBoxSizer(wxVERTICAL);
+	infoSizer->SetMinSize(wxSize(300, 620));
+
+	wxStaticText* items = new wxStaticText(mainPanel, wxID_ANY, wxT("Items"), wxDefaultPosition, wxDefaultSize, 0);
+	items->Wrap(-1);
+	items->SetFont(wxFont(11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Ubuntu")));
+
+	infoSizer->Add(items, 0, wxALL, 5);
+
+	wxStaticText* missingFoldersText = new wxStaticText(mainPanel, wxID_ANY, wxT("Missing Folders"), wxDefaultPosition, wxDefaultSize, 0);
+	missingFoldersText->Wrap(-1);
+	missingFoldersText->SetFont(wxFont(11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Ubuntu")));
+	infoSizer->Add(missingFoldersText, 0, wxLEFT | wxTOP, 10);
+
+	m_MissingFoldersTree = new wxTreeCtrl(mainPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE);
+	infoSizer->Add(m_MissingFoldersTree, 0, wxALL | wxEXPAND, 5);
+
+	wxStaticText* synchronizedFilesText = new wxStaticText(mainPanel, wxID_ANY, wxT("Synchronized Files"), wxDefaultPosition, wxDefaultSize, 0);
+	synchronizedFilesText->Wrap(-1);
+	synchronizedFilesText->SetFont(wxFont(11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Ubuntu")));
+	infoSizer->Add(synchronizedFilesText, 0, wxALL, 5);
+
+	m_SynchronizedFilesTree = new wxTreeCtrl(mainPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE);
+	infoSizer->Add(m_SynchronizedFilesTree, 0, wxALL | wxEXPAND, 5);
+
+	wxStaticText* missingFiles = new wxStaticText(mainPanel, wxID_ANY, wxT("Missing Files"), wxDefaultPosition, wxDefaultSize, 0);
+	missingFiles->Wrap(-1);
+	missingFiles->SetFont(wxFont(11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Ubuntu")));
+	infoSizer->Add(missingFiles, 0, wxALL, 5);
+
+	m_MissingFilesTree = new wxTreeCtrl(mainPanel, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE);
+	infoSizer->Add(m_MissingFilesTree, 0, wxALL | wxEXPAND, 5);
+
+	mainAreaSizer->Add(infoSizer, 0, wxSHAPED, 0);
 
 	panelSizer->Add(mainAreaSizer, 1, wxEXPAND, 5);
 
@@ -98,15 +133,19 @@ Frame::Frame()
 	mainPanel->Layout();
 
 	panelSizer->Fit(mainPanel);
-	
+
 	mainSizer->Add(mainPanel, 1, wxEXPAND, 0);
 }
 
 void Frame::OnCompareButton(wxCommandEvent& event)
 {
-	std::string referencePath = m_ReferenceDirectoryPicker->GetPath().c_str().AsString().ToStdString();
-	std::string path = m_DirectoryPicker->GetPath().c_str().AsString().ToStdString();
-	
+	m_MissingFoldersTree->DeleteAllItems();
+	m_SynchronizedFilesTree->DeleteAllItems();
+	m_MissingFilesTree->DeleteAllItems();
+
+	std::filesystem::path referencePath = m_ReferenceDirectoryPicker->GetPath().c_str().AsString().ToStdString();
+	std::filesystem::path path = m_DirectoryPicker->GetPath().c_str().AsString().ToStdString();
+
 	if (referencePath.empty() || path.empty()) wxMessageBox("Reference or directory path is not selected!", "Folder Synchronizer", wxICON_ERROR);
 	else
 	{
@@ -117,18 +156,34 @@ void Frame::OnCompareButton(wxCommandEvent& event)
 
 			if (confirmation.ShowModal() == wxID_YES)
 			{
-				if (!s_Reference || s_Reference->Path != referencePath) s_Reference = std::make_unique<Folder>(referencePath);
 				if (!s_Folder || s_Folder->Path != path) s_Folder = std::make_unique<Folder>(path);
+				if (!s_Reference || s_Reference->Path != referencePath) s_Reference = std::make_unique<Folder>(referencePath);
 
-				s_Folder->Compare(*s_Reference);
+				if (s_Folder->IsSubfolder(*s_Reference))
+				{
+					std::stringstream message;
+					message << "Folder '" << s_Folder->Path.filename() << "' is a subfolder of '" << s_Reference->Path.filename() << "'!";
+					
+					wxMessageBox(message.str(), "Folder Synchronizer", wxICON_ERROR);
+				}
+				else
+				{
+					s_Folder->Compare(*s_Reference);
 
-				wxMessageBox("Directories compared successfully!", "Folder Synchronizer", wxICON_INFORMATION | wxOK);
+					AppendItems();
+
+					wxMessageBox("Directories compared successfully!", "Folder Synchronizer", wxICON_INFORMATION | wxOK);
+				}
 			}
 		}
 	}
 }
 void Frame::OnSynchronizeButton(wxCommandEvent& event)
 {
+	m_MissingFoldersTree->DeleteAllItems();
+	m_SynchronizedFilesTree->DeleteAllItems();
+	m_MissingFilesTree->DeleteAllItems();
+
 	std::string referencePath = m_ReferenceDirectoryPicker->GetPath().c_str().AsString().ToStdString();
 	std::string path = m_DirectoryPicker->GetPath().c_str().AsString().ToStdString();
 
@@ -142,12 +197,43 @@ void Frame::OnSynchronizeButton(wxCommandEvent& event)
 
 			if (confirmation.ShowModal() == wxID_YES)
 			{
-				if (!s_Reference || s_Reference->Path != referencePath) s_Reference = std::make_unique<Folder>(referencePath);
-				if (!s_Folder || s_Folder->Path != path) s_Folder = std::make_unique<Folder>(path);
+				bool compare = false;
 
-				s_Folder->Synchronize(*s_Reference);
+				if (!s_Folder || s_Folder->Path != path)
+				{
+					s_Folder = std::make_unique<Folder>(path);
+				
+					compare = true;
+				}
+				if (!s_Reference || s_Reference->Path != referencePath)
+				{
+					s_Reference = std::make_unique<Folder>(referencePath);
+				
+					compare = true;
+				}
 
-				wxMessageBox("Directories synchronized successfully!", "Folder Synchronizer", wxICON_INFORMATION | wxOK);
+				if (s_Folder->IsSubfolder(*s_Reference))
+				{
+					std::stringstream message;
+					message << "Folder '" << s_Folder->Path.filename() << "' is a subfolder of '" << s_Reference->Path.filename() << "'!";
+
+					wxMessageBox(message.str(), "Folder Synchronizer", wxICON_ERROR);
+				}
+				else
+				{
+					if (compare)
+					{
+						s_Folder->Compare(*s_Reference);
+					
+						AppendItems();
+					}
+
+					s_Folder->Synchronize(*s_Reference);
+
+					s_Folder = std::make_unique<Folder>(path);
+
+					wxMessageBox("Directories synchronized successfully!", "Folder Synchronizer", wxICON_INFORMATION | wxOK);
+				}
 			}
 		}
 	}
@@ -165,6 +251,36 @@ void Frame::OnDirectoryPicker(wxFileDirPickerEvent& event)
 void Frame::OnFastMode(wxCommandEvent& event)
 {
 	Config::FastMode = m_FastMode->GetValue();
+}
+
+void Frame::AppendItems()
+{
+	if (Result::MissingFolders.size() > 0)
+	{
+		for (const auto& folder : Result::MissingFolders)
+		{
+			m_MissingFoldersTree->AppendItem(nullptr, folder.Reference->Path.filename().c_str());
+		}
+	}
+	else m_MissingFoldersTree->AppendItem(nullptr, "No missing folders found");
+
+	if (Result::SynchronizeFiles.size() > 0)
+	{
+		for (const auto& file : Result::SynchronizeFiles)
+		{
+			m_SynchronizedFilesTree->AppendItem(nullptr, file.Reference->Path.filename().c_str());
+		}
+	}
+	else m_SynchronizedFilesTree->AppendItem(nullptr, "No synchronized files found");
+
+	if (Result::MissingFiles.size() > 0)
+	{
+		for (const auto& file : Result::MissingFiles)
+		{
+			m_MissingFilesTree->AppendItem(nullptr, file.Reference->Path.filename().c_str());
+		}
+	}
+	else m_MissingFilesTree->AppendItem(nullptr, "No missing files found");
 }
 
 wxIMPLEMENT_APP(FolderSynchronizer);

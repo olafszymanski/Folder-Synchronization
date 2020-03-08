@@ -76,7 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(wxWidgets)\lib\vc_lib\mswud;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\wxWidgets-3.1.3\lib\vc_lib\mswud;$(SolutionDir)Dependencies\wxWidgets-3.1.3\include;$(SolutionDir)Dependencies\Boost\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -94,7 +94,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(wxWidgets)\lib\vc_x64_lib\mswud;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\wxWidgets-3.1.3\lib\vc_x64_lib\mswud;$(SolutionDir)Dependencies\wxWidgets-3.1.3\include;$(SolutionDir)Dependencies\Boost\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -114,7 +114,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(wxWidgets)\lib\vc_lib\mswu;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\wxWidgets-3.1.3\lib\vc_lib\mswu;$(SolutionDir)Dependencies\wxWidgets-3.1.3\include;$(SolutionDir)Dependencies\Boost\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -135,7 +135,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(wxWidgets)\lib\vc_lib\mswu;$(wxWidgets)\include;$(Boost)\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\wxWidgets-3.1.3\lib\vc_lib\mswu;$(SolutionDir)Dependencies\wxWidgets-3.1.3\include;$(SolutionDir)Dependencies\Boost\include;$(SolutionDir)Dependencies\spdlog\include;$(SolutionDir)$(ProjectName)\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>

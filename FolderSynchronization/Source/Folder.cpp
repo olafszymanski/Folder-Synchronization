@@ -79,9 +79,22 @@ std::vector<char> File::Read(const File& file)
 Folder::Folder(const std::filesystem::path& path)
 	: Path(path)
 	, Files({ }), Folders({ })
-	, m_Compared(false)
 {
 	Load(*this);
+}
+
+bool Folder::IsSubfolder(const Folder& parent)
+{
+	std::filesystem::path path = Path;
+
+	while (path.has_parent_path() && path.has_relative_path())
+	{
+		if (path == parent.Path) return true;
+
+		path = path.parent_path();
+	}
+
+	return false;
 }
 
 void Folder::Compare(const Folder& reference)
@@ -113,13 +126,9 @@ void Folder::Compare(const Folder& reference)
 	}
 
 	LOG_DEBUG("Comparison took: {0}ms.", timer.Stop());
-
-	m_Compared = true;
 }
 void Folder::Synchronize(const Folder& reference)
 {
-	if (!m_Compared) Compare(reference);
-
 	Timer timer;
 
 	if (Result::MissingFolders.size() > 0)
@@ -181,11 +190,16 @@ void Folder::Load(Folder& folder)
 	}
 }
 
-void Folder::CompareFiles(const std::shared_ptr<Folder>& reference)
+bool Folder::CompareFiles(const std::shared_ptr<Folder>& reference)
 {
 	LOG_INFO("Comparing files in '{0}' to files in '{1}'.", Path.u8string(), reference->Path.u8string());
 
-	if (!ContainsFiles() && reference->ContainsFiles()) Result::MissingFolders.push_back({ reference, Path });
+	if (!ContainsFiles() && reference->ContainsFiles())
+	{
+		Result::MissingFolders.push_back({ reference, Path });
+	
+		return true;
+	}
 	else
 	{
 		std::vector<std::shared_ptr<File>> missingFiles = reference->Files;
@@ -210,6 +224,8 @@ void Folder::CompareFiles(const std::shared_ptr<Folder>& reference)
 		{
 			Result::MissingFiles.push_back({ file, Path });
 		}
+
+		return false;
 	}
 }
 void Folder::CompareFolders(const std::shared_ptr<Folder>& reference)
@@ -219,29 +235,30 @@ void Folder::CompareFolders(const std::shared_ptr<Folder>& reference)
 	if (!ContainsFolders() && reference->ContainsFolders()) Result::MissingFolders.push_back({ reference, Path });
 	else
 	{
-		CompareFiles(reference);
-
-		std::vector<std::shared_ptr<Folder>> missingFolders = reference->Folders;
-
-		missingFolders.erase(std::remove_if(missingFolders.begin(), missingFolders.end(),
-			[this](const std::shared_ptr<Folder>& referenceFolder)
-			{
-				for (const auto& folder : Folders)
-				{
-					if (folder->Path.filename() == referenceFolder->Path.filename())
-					{
-						folder->CompareFolders(referenceFolder);
-					
-						return true;
-					}
-				}
-
-				return false;
-			}), missingFolders.end());
-
-		for (const auto& folder : missingFolders)
+		if (!CompareFiles(reference))
 		{
-			Result::MissingFolders.push_back({ folder, Path, true });
+			std::vector<std::shared_ptr<Folder>> missingFolders = reference->Folders;
+
+			missingFolders.erase(std::remove_if(missingFolders.begin(), missingFolders.end(),
+				[this](const std::shared_ptr<Folder>& referenceFolder)
+				{
+					for (const auto& folder : Folders)
+					{
+						if (folder->Path.filename() == referenceFolder->Path.filename())
+						{
+							folder->CompareFolders(referenceFolder);
+
+							return true;
+						}
+					}
+
+					return false;
+				}), missingFolders.end());
+
+			for (const auto& folder : missingFolders)
+			{
+				Result::MissingFolders.push_back({ folder, Path, true });
+			}
 		}
 	}
 }
